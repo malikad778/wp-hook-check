@@ -7,6 +7,8 @@
 [![PHP Version](https://img.shields.io/packagist/php-v/adnan/wp-hook-auditor)](https://packagist.org/packages/adnan/wp-hook-auditor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+![Demo](demo.gif)
+
 ---
 
 ## The problem
