@@ -1,5 +1,5 @@
 {
-    "name": "adnan/wp-hook-check",
+    "name": "malikad778/wp-hook-check",
     "description": "Detect orphaned and unheard WordPress hooks via static analysis. No WordPress installation required.",
     "type": "library",
     "keywords": [

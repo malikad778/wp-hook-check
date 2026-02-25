@@ -1,10 +1,10 @@
-# wp-hook-auditor
+# wp-hook-check
 
 **Static analysis for WordPress hooks. Find broken hook connections before they reach production.**
 
 [![Tests](https://github.com/malikad778/wp-hook-check/actions/workflows/tests.yml/badge.svg)](https://github.com/malikad778/wp-hook-check/actions)
-[![Latest Version](https://img.shields.io/packagist/v/adnan/wp-hook-check)](https://packagist.org/packages/adnan/wp-hook-check)
-[![PHP Version](https://img.shields.io/packagist/php-v/adnan/wp-hook-check)](https://packagist.org/packages/adnan/wp-hook-check)
+[![Latest Version](https://img.shields.io/packagist/v/malikad778/wp-hook-check)](https://packagist.org/packages/malikad778/wp-hook-check)
+[![PHP Version](https://img.shields.io/packagist/php-v/malikad778/wp-hook-check)](https://packagist.org/packages/malikad778/wp-hook-check)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ![Demo](demo.gif)
@@ -34,7 +34,7 @@ This tool parses every PHP file in a directory, maps all hook registrations and 
 ## Install
 
 ```bash
-composer require --dev adnan/wp-hook-auditor
+composer require --dev malikad778/wp-hook-check
 ```
 
 PHP 8.1+.
@@ -209,7 +209,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with: { php-version: '8.2' }
-      - run: composer require --dev adnan/wp-hook-auditor
+      - run: composer require --dev malikad778/wp-hook-check
       - run: vendor/bin/wp-hook-audit audit . --format=github --fail-on=high
 ```
 
