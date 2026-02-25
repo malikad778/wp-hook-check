@@ -37,7 +37,7 @@ This tool parses every PHP file in a directory, maps all hook registrations and 
 composer require --dev malikad778/wp-hook-check
 ```
 
-PHP 8.1+.
+PHP 8.2+.
 
 ---
 
