@@ -2,9 +2,9 @@
 
 **Static analysis for WordPress hooks. Find broken hook connections before they reach production.**
 
-[![Tests](https://github.com/malikad778/wp-hook-auditor/actions/workflows/tests.yml/badge.svg)](https://github.com/malikad778/wp-hook-auditor/actions)
-[![Latest Version](https://img.shields.io/packagist/v/adnan/wp-hook-auditor)](https://packagist.org/packages/adnan/wp-hook-auditor)
-[![PHP Version](https://img.shields.io/packagist/php-v/adnan/wp-hook-auditor)](https://packagist.org/packages/adnan/wp-hook-auditor)
+[![Tests](https://github.com/malikad778/wp-hook-check/actions/workflows/tests.yml/badge.svg)](https://github.com/malikad778/wp-hook-check/actions)
+[![Latest Version](https://img.shields.io/packagist/v/adnan/wp-hook-check)](https://packagist.org/packages/adnan/wp-hook-check)
+[![PHP Version](https://img.shields.io/packagist/php-v/adnan/wp-hook-check)](https://packagist.org/packages/adnan/wp-hook-check)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ![Demo](demo.gif)
