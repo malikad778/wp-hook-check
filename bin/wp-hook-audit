@@ -1,0 +1,34 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+$autoloaders = [
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../../../autoload.php', 
+
+];
+
+$autoloaded = false;
+foreach ($autoloaders as $autoloader) {
+    if (file_exists($autoloader)) {
+        require $autoloader;
+        $autoloaded = true;
+        break;
+    }
+}
+
+if (! $autoloaded) {
+    fwrite(STDERR, "Error: Could not find Composer autoloader.\nRun 'composer install' first.\n");
+    exit(2);
+}
+
+use Adnan\WpHookAuditor\Commands\AuditCommand;
+use Adnan\WpHookAuditor\Commands\DumpCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application('WP Hook Auditor', '1.0.0');
+$application->add(new AuditCommand());
+$application->add(new DumpCommand());
+$application->setDefaultCommand('audit');
+$application->run();

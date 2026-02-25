@@ -1,0 +1,22 @@
+{
+    "exclude": ["vendor/", "tests/", "node_modules/"],
+    "detectors": {
+        "orphaned_listener": true,
+        "unheard_hook": true,
+        "typo": true,
+        "dynamic_hook": false
+    },
+    "ignore": [],
+    "external_prefixes": [
+        "wp_", "admin_", "woocommerce_", "acf/", "elementor/",
+        "pre_", "the_", "get_", "save_", "delete_",
+        "after_", "before_", "user_", "comment_", "post_",
+        "term_", "nav_", "login_", "register_", "heartbeat_",
+        "customize_", "oembed_", "rest_", "xmlrpc_", "auth_",
+        "send_", "retrieve_", "transition_",
+        "deprecated_", "plugins_", "map_", "query_", "cron_",
+        "option_", "network_", "site_", "menu_", "phpmailer_",
+        "shutdown", "init", "parse_request", "plugins_loaded",
+        "plugin_action_links", "map_meta_cap", "screen_", "set_screen_"
+    ]
+}
