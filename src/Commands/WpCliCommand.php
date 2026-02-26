@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Adnan\WpHookAuditor\Commands;
 
-use Adnan\WpHookAuditor\Analyser\FileScanner;
 use Adnan\WpHookAuditor\Analyser\HookAnalyser;
 use Adnan\WpHookAuditor\Config\ConfigLoader;
 use Adnan\WpHookAuditor\Reporters\ConsoleReporter;
@@ -122,18 +121,17 @@ class WpCliCommand
             default  => new ConsoleReporter($consoleOutput),
         };
 
-        $startTime = microtime(true);
-
         try {
-            $scanner  = new FileScanner($config->exclude);
-            $files    = $scanner->scan($resolvedPath);
             $analyser = new HookAnalyser();
-            $issues   = $analyser->analyse($files, $config);
+            $result   = $analyser->analyse($resolvedPath, $config);
 
-            $duration = round(microtime(true) - $startTime, 3);
-            $reporter->report($issues, count($files), $duration);
+            foreach ($result->parseErrors as $parseError) {
+                $consoleOutput->writeln("<comment>⚠ {$parseError}</comment>");
+            }
 
-            $exitCode = $this->calculateExitCode($issues, $assoc_args['fail-on'] ?? 'high');
+            $reporter->report($result->issues, $result->fileCount, $result->duration);
+
+            $exitCode = $this->calculateExitCode($result->issues, $assoc_args['fail-on'] ?? 'high');
             if ($exitCode > 0) {
                 // Exit quietly so WP_CLI doesn't print its own generic error
                 exit($exitCode);
