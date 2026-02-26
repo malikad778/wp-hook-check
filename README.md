@@ -33,19 +33,37 @@ This tool parses every PHP file in a directory, maps all hook registrations and 
 
 ## Install
 
+### Package (Composer)
+
 ```bash
 composer require --dev malikad778/wp-hook-check
 ```
 
 PHP 8.2+.
 
+### Global (WP-CLI)
+
+Install globally via WP-CLI to scan any site:
+
+```bash
+wp package install malikad778/wp-hook-check
+```
+
 ---
 
 ## Usage
 
+### As a standalone script
 ```bash
 # Scan current directory
 vendor/bin/wp-hook-audit audit .
+```
+
+### Via WP-CLI
+```bash
+# Scan a specific plugin
+wp hook-check ./wp-content/plugins/my-plugin
+```
 
 # Scan a plugin
 vendor/bin/wp-hook-audit audit ./wp-content/plugins/my-plugin
@@ -127,10 +145,12 @@ Issues show up as inline annotations on the exact lines in GitHub pull requests.
 
 ## CLI options
 
-### `audit`
+### `audit` / `wp hook-check`
 
 ```bash
 vendor/bin/wp-hook-audit audit [path] [options]
+# OR
+wp hook-check [path] [options]
 ```
 
 | Option | Default | Description |
@@ -148,7 +168,7 @@ vendor/bin/wp-hook-audit audit [path] [options]
 vendor/bin/wp-hook-audit dump [path] [--format=table|json]
 ```
 
-Dumps the full hook map - every `add_action`, `do_action`, `add_filter`, `apply_filters` call, with file, line, and priority. No detectors run. Good for exploring an unfamiliar codebase.
+Dumps the full hook map - every `add_action`, `do_action`, `add_filter`, `apply_filters` call, with file, line, and priority. No detectors run. Good for exploring an unfamiliar codebase. *(Not currently supported via WP-CLI).*
 
 ---
 

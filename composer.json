@@ -27,12 +27,16 @@
         "symfony/finder": "^6.0|^7.0"
     },
     "require-dev": {
-        "pestphp/pest": "^2.0|^3.0"
+        "pestphp/pest": "^2.0|^3.0",
+        "wp-cli/wp-cli": "^2.0"
     },
     "autoload": {
         "psr-4": {
             "Adnan\\WpHookAuditor\\": "src/"
-        }
+        },
+        "files": [
+            "wp-cli-command.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
