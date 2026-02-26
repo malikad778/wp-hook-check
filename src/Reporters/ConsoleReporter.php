@@ -57,19 +57,19 @@ class ConsoleReporter implements ReporterInterface
         ));
 
         $this->output->writeln(sprintf(
-            '  <fg=gray>File  :</> %s<fg=gray>:</>%d',
+            '  <fg=default>File  :</> %s<fg=default>:</>%d',
             $this->relativePath($issue->file),
             $issue->line,
         ));
 
         $this->output->writeln(sprintf(
-            '  <fg=gray>Hook  :</> <fg=yellow>%s</>',
+            '  <fg=default>Hook  :</> <fg=yellow>%s</>',
             $issue->hookName,
         ));
 
         if ($issue->suggestion !== null) {
             $this->output->writeln(sprintf(
-                '  <fg=gray>Closest match:</> <fg=green>%s</>',
+                '  <fg=default>Closest match:</> <fg=green>%s</>',
                 $issue->suggestion,
             ));
         }
@@ -77,7 +77,7 @@ class ConsoleReporter implements ReporterInterface
         $this->output->writeln('');
         $this->output->writeln('  ' . $issue->message);
         $this->output->writeln('');
-        $this->output->writeln('  <fg=gray>Fix:</> ' . $issue->safeAlternative);
+        $this->output->writeln('  <fg=default>Fix:</> ' . $issue->safeAlternative);
         $this->output->writeln('');
         $this->output->writeln('  ' . self::DIVIDER);
         $this->output->writeln('');
@@ -89,9 +89,9 @@ class ConsoleReporter implements ReporterInterface
         $medium = count(array_filter($issues, fn ($i) => $i->severity === IssueSeverity::MEDIUM));
         $info   = count(array_filter($issues, fn ($i) => $i->severity === IssueSeverity::INFO));
 
-        $highStr   = $high   > 0 ? "<fg=red;options=bold>{$high} HIGH</>"   : "<fg=gray>{$high} HIGH</>";
-        $mediumStr = $medium > 0 ? "<fg=yellow>{$medium} MEDIUM</>"        : "<fg=gray>{$medium} MEDIUM</>";
-        $infoStr   = $info   > 0 ? "<fg=cyan>{$info} INFO</>"              : "<fg=gray>{$info} INFO</>";
+        $highStr   = $high   > 0 ? "<fg=red;options=bold>{$high} HIGH</>"   : "<fg=default>{$high} HIGH</>";
+        $mediumStr = $medium > 0 ? "<fg=yellow>{$medium} MEDIUM</>"        : "<fg=default>{$medium} MEDIUM</>";
+        $infoStr   = $info   > 0 ? "<fg=cyan>{$info} INFO</>"              : "<fg=default>{$info} INFO</>";
 
         $this->output->writeln('');
         $this->output->writeln("  <options=bold>SUMMARY</>  {$highStr}   {$mediumStr}   {$infoStr}");
