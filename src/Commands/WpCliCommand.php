@@ -121,9 +121,31 @@ class WpCliCommand
             default  => new ConsoleReporter($consoleOutput),
         };
 
+        if ($format === 'table') {
+            $progressBar = new \Symfony\Component\Console\Helper\ProgressBar($consoleOutput);
+            $progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% • %elapsed:6s%');
+        } else {
+            $progressBar = null;
+        }
+
         try {
             $analyser = new HookAnalyser();
-            $result   = $analyser->analyse($resolvedPath, $config);
+            $result   = $analyser->analyse(
+                $resolvedPath,
+                $config,
+                function (int $totalFiles) use ($progressBar) {
+                    if ($progressBar) $progressBar->start($totalFiles);
+                },
+                function () use ($progressBar) {
+                    if ($progressBar) $progressBar->advance();
+                }
+            );
+
+            if ($progressBar) {
+                $progressBar->finish();
+                $consoleOutput->writeln('');
+                $consoleOutput->writeln('');
+            }
 
             foreach ($result->parseErrors as $parseError) {
                 $consoleOutput->writeln("<comment>⚠ {$parseError}</comment>");
@@ -133,7 +155,6 @@ class WpCliCommand
 
             $exitCode = $this->calculateExitCode($result->issues, $assoc_args['fail-on'] ?? 'high');
             if ($exitCode > 0) {
-                // Exit quietly so WP_CLI doesn't print its own generic error
                 exit($exitCode);
             }
 

@@ -30,8 +30,12 @@ class AnalysisResult
 
 class HookAnalyser
 {
-    public function analyse(string $rootPath, Config $config): AnalysisResult
-    {
+    public function analyse(
+        string $rootPath,
+        Config $config,
+        ?\Closure $onStart = null,
+        ?\Closure $onProgress = null
+    ): AnalysisResult {
         $startTime   = microtime(true);
         $hookMap     = new HookMap();
         $parseErrors = [];
@@ -41,7 +45,14 @@ class HookAnalyser
 
         $parser = (new ParserFactory())->createForNewestSupportedVersion();
 
+        if ($onStart !== null) {
+            $onStart(count($files));
+        }
+
         foreach ($files as $file) {
+            if ($onProgress !== null) {
+                $onProgress();
+            }
             $code = file_get_contents($file->getRealPath());
 
             if ($code === false) {

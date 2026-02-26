@@ -71,9 +71,36 @@ class AuditCommand extends Command
             $config = $this->applyOnlyFilter($config, $only);
         }
 
+        if ($format === 'table') {
+            $progressBar = new \Symfony\Component\Console\Helper\ProgressBar($output);
+            // Example output: "   14/23 [=>--------------------------]  60% • 1 sec"
+            $progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% • %elapsed:6s%');
+        } else {
+            $progressBar = null;
+        }
+
         try {
             $analyser = new HookAnalyser();
-            $result   = $analyser->analyse($path, $config);
+            $result   = $analyser->analyse(
+                $path,
+                $config,
+                function (int $totalFiles) use ($progressBar) {
+                    if ($progressBar) {
+                        $progressBar->start($totalFiles);
+                    }
+                },
+                function () use ($progressBar) {
+                    if ($progressBar) {
+                        $progressBar->advance();
+                    }
+                }
+            );
+
+            if ($progressBar) {
+                $progressBar->finish();
+                $output->writeln(''); // Add blank line after the progress bar finishes
+                $output->writeln('');
+            }
         } catch (RuntimeException $e) {
             $output->writeln("<error>Analysis error: {$e->getMessage()}</error>");
 
